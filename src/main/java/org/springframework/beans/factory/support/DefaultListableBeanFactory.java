@@ -13,6 +13,10 @@ import java.util.*;
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry {
 
+	/**
+	 * 存储 name 与 beanDefinition 的数据, 不包含代理对象,
+	 * 代理对象的创建在第一次获取bean时根据beandefinition创建,再放入 singleton Map
+	 */
 	private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
 
 	@Override

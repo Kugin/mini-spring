@@ -45,6 +45,7 @@ public class PopulateBeanWithPropertyValuesTest {
 		PropertyValues propertyValuesForCar = new PropertyValues();
 		propertyValuesForCar.addPropertyValue(new PropertyValue("brand", "porsche"));
 		BeanDefinition carBeanDefinition = new BeanDefinition(Car.class, propertyValuesForCar);
+		//此工厂的car 注入顺序无限制, 也可以在person注入之后再注入car. 只在第一次获取person时才会真正创建 car的代理对象, person的代理对象 并放入 singletone 单例Map中.
 		beanFactory.registerBeanDefinition("car", carBeanDefinition);
 
 		//注册Person实例
@@ -53,6 +54,9 @@ public class PopulateBeanWithPropertyValuesTest {
 		propertyValuesForPerson.addPropertyValue(new PropertyValue("age", 18));
 		//Person实例依赖Car实例
 		propertyValuesForPerson.addPropertyValue(new PropertyValue("car", new BeanReference("car")));
+		//car1 是对象也能给person设置car1的值, 会覆盖同名car的beanReference的对象值. 但是,此种对象不被容器管理, 不会有createBean的过程,也就不会加入singletone 单例Map中.
+		//Car car1 = new Car();
+		//propertyValuesForPerson.addPropertyValue(new PropertyValue("car", car1));
 		BeanDefinition beanDefinition = new BeanDefinition(Person.class, propertyValuesForPerson);
 		beanFactory.registerBeanDefinition("person", beanDefinition);
 
