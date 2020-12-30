@@ -212,6 +212,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @throws Throwable
 	 */
 	protected void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Throwable {
+		// afterProperties 先与initMethod执行, 且不在beanDefinition中
 		if (bean instanceof InitializingBean) {
 			((InitializingBean) bean).afterPropertiesSet();
 		}

@@ -28,6 +28,7 @@ public class DisposableBeanAdapter implements DisposableBean {
 
 	@Override
 	public void destroy() throws Exception {
+		// destroy 先与destroyMethod执行, 且不在beanDefinition中
 		if (bean instanceof DisposableBean) {
 			((DisposableBean) bean).destroy();
 		}

@@ -152,6 +152,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 				doClose();
 			}
 		};
+		//JVM注册钩子的形式 在JVM关闭时调用销毁方法
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 
 	}
